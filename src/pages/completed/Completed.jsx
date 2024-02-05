@@ -1,7 +1,8 @@
+import { Button } from "@/components/ui/button";
 import React from "react";
 
 const Completed = () => {
-  return <div>Completed</div>;
+  return <Button>Completed</Button>;
 };
 
 export default Completed;

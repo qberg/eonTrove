@@ -9,6 +9,7 @@ const Header = () => {
         <a href="/" className="font-vt323 text-4xl text-slate-600">
           EonTrove
         </a>
+
         <div className="max-sm:flex flex items-center gap-4">
           <ul className="max-sm:hidden flex justify-end items-end gap-4 font-leto text-lg text-gray-600">
             <li className="hover:underline">
