@@ -1,13 +1,19 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import { Button } from "./components/ui/button";
+import Header from "./components/Header";
+import Listopia from "./pages/listopia/Listopia";
 
-function App() {
+const App = () => {
   return (
-    <div>
-      <h1 className="text-4xl text-center pt-4">Hello from qberg</h1>
-      <Button>Click Me</Button>
-    </div>
+    <main className="relative">
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Listopia />} />
+        </Routes>
+      </Router>
+    </main>
   );
-}
+};
 
 export default App;
