@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className="p-4 w-full shadow-md rounded-t-lg">
+    <header className="p-4 container mx-auto w-full shadow-md rounded-t-lg">
       <div className="flex justify-between items-center">
         <a href="/" className="font-vt323 text-4xl text-slate-600">
           EonTrove
@@ -19,7 +19,7 @@ const Header = () => {
               <Link to="/completed">Completed</Link>
             </li>
           </ul>
-          <div className="hidden max-md:block">
+          <div className="hidden max-sm:block">
             <Menu />
           </div>
         </div>
