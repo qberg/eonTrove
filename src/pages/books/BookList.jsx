@@ -9,28 +9,36 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-const BookList = ({ books, onMoveBook }) => {
+const BookList = ({ books, onMoveBook, onRemoveBook }) => {
   const moveToList = (book, targetList) => {
     onMoveBook(book, targetList);
   };
 
-  const renderBookItem = (book, index) => (
+  const renderBookItem = (book, index, listType ) => (
     <Card key={index}>
       <CardHeader>
         <CardTitle>{book.title}</CardTitle>
         <CardDescription>{book.author_name}</CardDescription>
       </CardHeader>
-      <CardFooter>
+      <CardFooter className="flex justify-between">
+        <Button
+          variant="destructive"
+          onClick={() => onRemoveBook(book)}
+        >
+          Remove
+        </Button>
         <div className="inline-flex gap-2">
           <Button
             variant="outline"
             onClick={() => moveToList(book, "completed")}
+            disabled={listType==="completed"}
           >
             Completed
           </Button>
           <Button
             variant="outline"
             onClick={() => moveToList(book, "watchlisted")}
+            disabled={listType==="watchlisted"}
           >
             In Progress
           </Button>
@@ -51,7 +59,7 @@ const BookList = ({ books, onMoveBook }) => {
           <div>
             {books
               .filter((book) => book.status === "watchlisted")
-              .map((book, index) => renderBookItem(book, index))}
+              .map((book, index) => renderBookItem(book, index, "watchlisted"))}
           </div>
         </>
       )}
@@ -62,7 +70,7 @@ const BookList = ({ books, onMoveBook }) => {
           <div>
             {books
               .filter((book) => book.status === "completed")
-              .map((book, index) => renderBookItem(book, index))}
+              .map((book, index) => renderBookItem(book, index, "completed"))}
           </div>
         </>
       )}
