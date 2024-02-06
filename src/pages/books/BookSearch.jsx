@@ -1,13 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import BookCard from "./BookCard";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import BookTable from "./BookTable";
 
-const BookSearch = ({
-  onAddBook,
-}) => {
+const BookSearch = ({ onAddBook }) => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -15,7 +12,7 @@ const BookSearch = ({
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 100;
 
-  const searchBooks = async (page=1) => {
+  const searchBooks = async (page = 1) => {
     if (!query) return;
 
     setIsLoading(true);
@@ -25,7 +22,7 @@ const BookSearch = ({
       );
       setResults(response.data.docs);
       setTotalResults(response.data.numFound);
-      setCurrentPage(page)
+      setCurrentPage(page);
     } catch (error) {
       console.error("Error fetching openlibrary API data", error);
     }
@@ -34,24 +31,24 @@ const BookSearch = ({
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      searchBooks()
+      searchBooks();
     }
   };
 
   const handlePreviousClick = () => {
-    if (currentPage>1) {
-      searchBooks(currentPage-1)
-    }
-  };  
-
-  const handleNextClick = () => {
-    if (currentPage < Math.ceil(totalResults/resultsPerPage)) {
-      searchBooks(currentPage + 1)
+    if (currentPage > 1) {
+      searchBooks(currentPage - 1);
     }
   };
 
-  const startIndex = (currentPage-1)*resultsPerPage+1 
-  const endIndex = Math.min(startIndex + resultsPerPage -1 || totalResults)
+  const handleNextClick = () => {
+    if (currentPage < Math.ceil(totalResults / resultsPerPage)) {
+      searchBooks(currentPage + 1);
+    }
+  };
+
+  const startIndex = (currentPage - 1) * resultsPerPage + 1;
+  const endIndex = Math.min(startIndex + resultsPerPage - 1 || totalResults);
 
   return (
     <div className="p-4">
@@ -64,15 +61,8 @@ const BookSearch = ({
           placeholder="Search for your next book"
         />
       </div>
-      <Button
-        onClick={ () => searchBooks() }
-        disabled={isLoading}
-      >
-        {
-          isLoading ?
-          "Searching..." :
-          "Search"
-        }
+      <Button onClick={() => searchBooks()} disabled={isLoading}>
+        {isLoading ? "Searching..." : "Search"}
       </Button>
       <div className="mt-2">
         {totalResults > 0 && (
@@ -88,7 +78,7 @@ const BookSearch = ({
         <Button
           variant="outline"
           onClick={handlePreviousClick}
-          disabled={currentPage<=1 || isLoading}
+          disabled={currentPage <= 1 || isLoading}
         >
           Previous
         </Button>
@@ -96,13 +86,15 @@ const BookSearch = ({
         <Button
           className="outline"
           onClick={handleNextClick}
-          disabled={currentPage >= Math.ceil(totalResults/resultsPerPage) || isLoading}
+          disabled={
+            currentPage >= Math.ceil(totalResults / resultsPerPage) || isLoading
+          }
         >
           Next
         </Button>
       </div>
     </div>
-  ) 
+  );
 };
 
 export default BookSearch;
