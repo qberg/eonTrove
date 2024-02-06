@@ -3,6 +3,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Listopia from "./pages/listopia/Listopia";
 import { Completed } from "./pages/completed";
+import Books from "./pages/books/Books";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Listopia />} />
           <Route path="/completed" element={<Completed />} />
+          <Route path="/books" element={<Books />} />
         </Routes>
       </Router>
     </main>

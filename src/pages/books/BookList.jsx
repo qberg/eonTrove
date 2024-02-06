@@ -30,7 +30,7 @@ const BookList = ({ books, onMoveBook }) => {
           </Button>
           <Button
             variant="outline"
-            onClick={() => moveToList(book, "completed")}
+            onClick={() => moveToList(book, "watchlisted")}
           >
             In Progress
           </Button>

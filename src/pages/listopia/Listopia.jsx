@@ -7,7 +7,6 @@ const Listopia = () => {
       <div className="flex flex-col justify-center items-center">
         <h1 className="font-leto text-2xl">Listopia</h1>
         <div>Buttons for various lists goes here</div>
-        <Books />
       </div>
     </div>
   );
