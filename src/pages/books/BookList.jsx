@@ -8,10 +8,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useStore } from "@/store";
 
-const BookList = ({ books, onMoveBook, onRemoveBook }) => {
+const BookList = () => {
+  const {books, removeBook, moveBook} = useStore((state)=>state);
   const moveToList = (book, targetList) => {
-    onMoveBook(book, targetList);
+    moveBook(book, targetList);
   };
 
   const renderBookItem = (book, index, listType ) => (
@@ -23,7 +25,7 @@ const BookList = ({ books, onMoveBook, onRemoveBook }) => {
       <CardFooter className="flex justify-between">
         <Button
           variant="destructive"
-          onClick={() => onRemoveBook(book)}
+          onClick={() => removeBook(book)}
         >
           Remove
         </Button>

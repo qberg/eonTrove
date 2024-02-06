@@ -1,50 +1,22 @@
+import { useStore } from "@/store";
 import BookList from "./BookList";
 import BookSearch from "./BookSearch";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 const Books = () => {
-  const [books, setBooks] = useState([]);
+
+  const {loadBooksFromLocalStorage} = useStore((state)=>state)
+
 
   useEffect(() => {
-    const storedBooks = localStorage.getItem("readingList");
-
-    if (storedBooks) {
-      setBooks(JSON.parse(storedBooks));
-    }
-  }, []);
-
-  const addBook = (newBook) => {
-    const updatedBooks = [...books, { ...newBook, status: "watchlisted" }];
-
-    setBooks(updatedBooks);
-    localStorage.setItem("readingList", JSON.stringify(updatedBooks));
-  };
-
-  const moveBook = (bookToMove, newStatus) => {
-    const updatedBooks = books.map((book) =>
-      book.key === bookToMove.key ? { ...book, status: newStatus } : book,
-    );
-
-    setBooks(updatedBooks);
-    localStorage.setItem("readingList", JSON.stringify(updatedBooks));
-  };
-
-  const removeBook = (bookToRemove) => {
-    if (window.confirm("Are you sure you want to remove this book?")) {
-      const updatedBooks = books.filter((book) => 
-        book.key !== bookToRemove.key
-      )
-
-      setBooks(updatedBooks);
-      localStorage.setItem("readingList", JSON.stringify(updatedBooks));
-    }
-  }
+    loadBooksFromLocalStorage()
+  }, [loadBooksFromLocalStorage]);
 
   return (
     <div className="p-4 container mx-auto">
       <h1 className="font-leto text-2xl">Book List</h1>
-      <BookSearch onAddBook={addBook} />
-      <BookList books={books} onMoveBook={moveBook} onRemoveBook={removeBook} />
+      <BookSearch />
+      <BookList />
     </div>
   );
 };

@@ -8,8 +8,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { useStore } from "@/store";
 
-const BookTable = ({ booksJson, onAddBook }) => {
+const BookTable = ({
+  booksJson,
+}) => {
+  const {books,addBook} = useStore((state)=>state);
   return (
     <Table>
       <TableHeader>
@@ -32,7 +36,7 @@ const BookTable = ({ booksJson, onAddBook }) => {
               <Button
                 variant="link"
                 onClick={() => {
-                  onAddBook({
+                  addBook({
                     key: index,
                     title: book.title,
                     author_name: book.author_name,
@@ -41,6 +45,9 @@ const BookTable = ({ booksJson, onAddBook }) => {
                     status: "watchlisted",
                   });
                 }}
+                disabled={books.some((b) => 
+                  b.key === book.key
+                )}
               >
                 Add
               </Button>

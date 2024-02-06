@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import BookTable from "./BookTable";
+import { useStore } from "@/store";
 
-const BookSearch = ({ onAddBook }) => {
+const BookSearch = () => {
+  const {addBook} = useStore((state)=>state);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -72,7 +74,13 @@ const BookSearch = ({ onAddBook }) => {
         )}
       </div>
       <div className="mt-4 max-h-64 overflow-auto">
-        <BookTable booksJson={results} onAddBook={onAddBook} />
+        {query.length>0 && results.length>0?(
+          <BookTable booksJson={results} />
+        ): 
+          <div className="flex max-h-60 items-center justify-center p-16">
+            <p className="font-leto">Start your search!</p>
+          </div>
+        }
       </div>
       <div className="mt-4 flex items-center justify-between">
         <Button
